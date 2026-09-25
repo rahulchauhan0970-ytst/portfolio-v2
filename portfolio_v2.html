@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rahul Chauhan — YouTube Strategist</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark: #0f0f1a;
+    --darker: #080810;
+    --accent: #3b82f6;
+    --accent-light: #60a5fa;
+    --accent-glow: rgba(59, 130, 246, 0.15);
+    --green: #10b981;
+    --green-light: #34d399;
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --text-dim: #64748b;
+    --card: #141428;
+    --card-border: rgba(59, 130, 246, 0.12);
+    --white: #ffffff;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --dark: #f8fafc;
+      --darker: #f1f5f9;
+      --card: #ffffff;
+      --card-border: rgba(59, 130, 246, 0.2);
+      --text: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #94a3b8;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --dark: #0f0f1a;
+    --darker: #080810;
+    --card: #141428;
+    --card-border: rgba(59, 130, 246, 0.12);
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --text-dim: #64748b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(15,15,26,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--card-border);
+    padding: 0 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo { font-weight: 700; font-size: 1.1rem; color: var(--white); }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent-light); }
+  .nav-cta {
+    background: var(--accent); color: white; border: none; cursor: pointer;
+    padding: 8px 20px; border-radius: 8px; font-weight: 600; font-size: 0.85rem;
+    text-decoration: none; transition: opacity 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.9; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 100px 40px 60px;
+    background: radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.12) 0%, transparent 70%);
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent-glow); border: 1px solid rgba(59,130,246,0.3);
+    color: var(--accent-light); padding: 6px 16px; border-radius: 100px;
+    font-size: 0.8rem; font-weight: 600; margin-bottom: 32px; letter-spacing: 0.05em;
+  }
+  .hero-badge span { width: 6px; height: 6px; background: var(--accent-light); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
+  .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; line-height: 1.1; margin-bottom: 24px; }
+  .hero h1 span { color: var(--accent-light); }
+  .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 40px; line-height: 1.7; }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+  .btn-primary {
+    background: var(--accent); color: white; padding: 14px 32px;
+    border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 0.95rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 24px rgba(59,130,246,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(59,130,246,0.4); }
+  .btn-secondary {
+    background: transparent; color: var(--text); padding: 14px 32px;
+    border: 1px solid var(--card-border); border-radius: 10px; text-decoration: none;
+    font-weight: 600; font-size: 0.95rem; transition: border-color 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent-light); }
+
+  /* STATS STRIP */
+  .stats-strip {
+    background: var(--card); border-top: 1px solid var(--card-border);
+    border-bottom: 1px solid var(--card-border);
+    padding: 40px 40px;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  }
+  .stat { text-align: center; padding: 0 20px; }
+  .stat:not(:last-child) { border-right: 1px solid var(--card-border); }
+  .stat-number { font-size: 2.2rem; font-weight: 800; color: var(--white); line-height: 1; }
+  .stat-number span { color: var(--accent-light); }
+  .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 6px; font-weight: 500; letter-spacing: 0.03em; }
+
+  /* SECTION */
+  section { padding: 80px 40px; max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 0.75rem; font-weight: 700; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
+  .section-title { font-size: 2rem; font-weight: 800; margin-bottom: 16px; }
+  .section-sub { color: var(--text-muted); font-size: 1rem; max-width: 600px; line-height: 1.7; margin-bottom: 48px; }
+
+  /* CASE STUDIES */
+  .case-study-card {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 16px; overflow: hidden; margin-bottom: 32px;
+    transition: border-color 0.3s;
+  }
+  .case-study-card:hover { border-color: rgba(59,130,246,0.35); }
+  .cs-header {
+    padding: 32px 36px 24px;
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 20px;
+    flex-wrap: wrap;
+  }
+  .cs-header-left { flex: 1; }
+  .cs-tag {
+    display: inline-block; background: var(--accent-glow); color: var(--accent-light);
+    border: 1px solid rgba(59,130,246,0.25); padding: 4px 12px;
+    border-radius: 6px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
+    margin-bottom: 12px; text-transform: uppercase;
+  }
+  .cs-tag.green { background: rgba(16,185,129,0.1); color: var(--green-light); border-color: rgba(16,185,129,0.25); }
+  .cs-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
+  .cs-subtitle { color: var(--text-muted); font-size: 0.9rem; }
+  .cs-metrics { display: flex; gap: 24px; flex-wrap: wrap; }
+  .metric-pill {
+    text-align: center; background: var(--darker); border: 1px solid var(--card-border);
+    border-radius: 10px; padding: 14px 20px; min-width: 110px;
+  }
+  .metric-number { font-size: 1.4rem; font-weight: 800; color: var(--green-light); }
+  .metric-label { font-size: 0.72rem; color: var(--text-muted); margin-top: 2px; font-weight: 500; }
+  .cs-body { padding: 0 36px 32px; }
+  .cs-divider { height: 1px; background: var(--card-border); margin-bottom: 28px; }
+  .cs-section-title { font-size: 0.72rem; font-weight: 700; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; }
+  .cs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .cs-point {
+    display: flex; gap: 12px; align-items: flex-start;
+    background: var(--darker); border-radius: 10px; padding: 14px 16px;
+    border: 1px solid var(--card-border);
+  }
+  .cs-point-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+  .cs-point-text { font-size: 0.875rem; color: var(--text-muted); line-height: 1.5; }
+  .cs-point-text strong { color: var(--text); font-weight: 600; display: block; margin-bottom: 2px; }
+
+  /* WHAT I DO */
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .service-card {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 14px; padding: 28px 24px; transition: border-color 0.3s;
+  }
+  .service-card:hover { border-color: rgba(59,130,246,0.35); }
+  .service-icon { font-size: 1.8rem; margin-bottom: 16px; }
+  .service-title { font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
+  .service-desc { font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* BRANDS */
+  .brands-section { text-align: center; padding: 60px 40px; background: var(--card); border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border); }
+  .brands-label { font-size: 0.75rem; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; margin-bottom: 28px; }
+  .brands-grid { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; max-width: 900px; margin: 0 auto; }
+  .brand-pill {
+    background: var(--darker); border: 1px solid var(--card-border);
+    color: var(--text-muted); padding: 8px 18px; border-radius: 8px;
+    font-size: 0.85rem; font-weight: 600;
+  }
+
+  /* EXPERIENCE */
+  .timeline { position: relative; }
+  .timeline-item { display: flex; gap: 24px; margin-bottom: 32px; }
+  .timeline-left { display: flex; flex-direction: column; align-items: center; }
+  .timeline-dot { width: 12px; height: 12px; background: var(--accent); border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+  .timeline-line { width: 2px; flex: 1; background: var(--card-border); margin-top: 8px; }
+  .timeline-content { flex: 1; background: var(--card); border: 1px solid var(--card-border); border-radius: 14px; padding: 24px 28px; }
+  .timeline-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+  .timeline-title { font-size: 1rem; font-weight: 700; }
+  .timeline-date { font-size: 0.8rem; color: var(--text-dim); font-weight: 500; }
+  .timeline-company { font-size: 0.875rem; color: var(--accent-light); font-weight: 600; margin-bottom: 12px; }
+  .timeline-desc { font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* PROCESS */
+  .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .process-step {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 14px; padding: 24px 20px; text-align: center;
+  }
+  .process-number { font-size: 1.8rem; font-weight: 800; color: var(--accent); opacity: 0.4; margin-bottom: 12px; }
+  .process-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; }
+  .process-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+
+  /* CTA */
+  .cta-section {
+    text-align: center; padding: 80px 40px;
+    background: radial-gradient(ellipse at 50% 100%, rgba(59,130,246,0.1) 0%, transparent 70%);
+  }
+  .cta-section h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 16px; }
+  .cta-section p { color: var(--text-muted); font-size: 1rem; max-width: 500px; margin: 0 auto 36px; line-height: 1.7; }
+  .cta-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .cta-link {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--card); border: 1px solid var(--card-border);
+    color: var(--text); padding: 12px 24px; border-radius: 10px;
+    text-decoration: none; font-weight: 600; font-size: 0.9rem;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .cta-link:hover { border-color: var(--accent); color: var(--accent-light); }
+
+  /* FOOTER */
+  footer { text-align: center; padding: 32px 40px; border-top: 1px solid var(--card-border); color: var(--text-dim); font-size: 0.82rem; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 20px 60px; }
+    .stats-strip { grid-template-columns: repeat(2, 1fr); padding: 32px 20px; }
+    .stat:nth-child(2) { border-right: none; }
+    section { padding: 60px 20px; }
+    .cs-header { padding: 24px 24px 20px; }
+    .cs-body { padding: 0 24px 24px; }
+    .cs-grid { grid-template-columns: 1fr; }
+    .cs-metrics { gap: 12px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .process-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Rahul Chauhan</div>
+  <div class="nav-links">
+    <a href="#work">Case Studies</a>
+    <a href="#services">Services</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="mailto:rahulchauhan0970@gmail.com" class="nav-cta">Get in Touch</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>YouTube Strategist<br>who <span>grows channels</span><br>with data and intent.</h1>
+  <p>5+ years building content strategies for globally recognised brands. From Nintendo to Remitly to healthcare tech — I turn platforms into growth engines.</p>
+  <div class="hero-actions">
+    <a href="#work" class="btn-primary">View Case Studies</a>
+    <a href="mailto:rahulchauhan0970@gmail.com" class="btn-secondary">Work With Me</a>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stat">
+    <div class="stat-number"><span>175.5</span>%</div>
+    <div class="stat-label">New Viewer Growth (Dr McDougall)</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number"><span>110K</span>+</div>
+    <div class="stat-label">Views from 12 Shorts — Zero New Shoots</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number"><span>10</span>+</div>
+    <div class="stat-label">Global Brand Clients Managed</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number"><span>5</span>+</div>
+    <div class="stat-label">Years of Agency Experience</div>
+  </div>
+</div>
+
+<!-- CASE STUDIES -->
+<section id="work">
+  <div class="section-label">Case Studies</div>
+  <h2 class="section-title">Work that moved the needle</h2>
+  <p class="section-sub">Real strategies, real numbers, real clients. Here is how I have approached YouTube growth across different industries and challenges.</p>
+
+  <!-- DR MCDOUGALL -->
+  <!-- ANAGEN CASE STUDY -->
+  <div class="case-study-card">
+    <div class="cs-header">
+      <div class="cs-header-left">
+        <div class="cs-tag green">Ongoing Project — Healthcare</div>
+        <div class="cs-title">Anagen — Hair Loss Research & Science</div>
+        <div class="cs-subtitle">Full Channel Strategy, Content System & Growth Management (2025 — Present)</div>
+      </div>
+      <div class="cs-metrics">
+        <div class="metric-pill">
+          <div class="metric-number">1.8M+</div>
+          <div class="metric-label">Total Views</div>
+        </div>
+        <div class="metric-pill">
+          <div class="metric-number">8,142</div>
+          <div class="metric-label">Subscribers Gained</div>
+        </div>
+        <div class="metric-pill">
+          <div class="metric-number">68K+</div>
+          <div class="metric-label">Watch Hours</div>
+        </div>
+        <div class="metric-pill">
+          <div class="metric-number">5.62%</div>
+          <div class="metric-label">Average CTR</div>
+        </div>
+      </div>
+    </div>
+    <div class="cs-body">
+      <div class="cs-divider"></div>
+      <div class="cs-section-title">The Channel</div>
+      <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:24px;line-height:1.7;">Anagen is a healthcare and hair science YouTube channel covering hair loss research, treatments and science-backed solutions. As YouTube Manager at GrowUMedia, I lead the full content operation — strategy, scripting direction, editorial planning, team management and performance optimisation across 241 published videos.</p>
+      <div class="cs-section-title">What I Manage</div>
+      <div class="cs-grid">
+        <div class="cs-point">
+          <div class="cs-point-icon">🎯</div>
+          <div class="cs-point-text"><strong>Content Strategy</strong>Full editorial direction — content pillars, video angles, packaging strategy and monthly content calendar across long form and Shorts.</div>
+        </div>
+        <div class="cs-point">
+          <div class="cs-point-icon">👥</div>
+          <div class="cs-point-text"><strong>Team Leadership</strong>Leading a team of researchers, scriptwriters and editors — briefing, reviewing and maintaining quality standards across all output.</div>
+        </div>
+        <div class="cs-point">
+          <div class="cs-point-icon">📦</div>
+          <div class="cs-point-text"><strong>Packaging & SEO</strong>Owning title strategy, thumbnail direction and metadata optimisation across all videos to drive CTR and search discoverability.</div>
+        </div>
+        <div class="cs-point">
+          <div class="cs-point-icon">📊</div>
+          <div class="cs-point-text"><strong>Analytics & Optimisation</strong>Weekly performance tracking across views, watch time, CTR and subscriber growth — iterating strategy based on what the data shows.</div>
+        </div>
+      </div>
+      <div class="cs-section-title">Key Results</div>
+      <div class="cs-grid">
+        <div class="cs-point">
+          <div class="cs-point-icon">🚀</div>
+          <div class="cs-point-text"><strong>1.8M+ Total Views</strong>Channel has generated over 1.8 million views across 241 videos with 13M+ total impressions delivered.</div>
+        </div>
+        <div class="cs-point">
+          <div class="cs-point-icon">📈</div>
+          <div class="cs-point-text"><strong>Long Form Drives 14x More Subscribers</strong>Long form content (85 videos) generated 7,601 subscribers vs 538 from Shorts (153 videos) — proving long form is the growth engine.</div>
+        </div>
+        <div class="cs-point">
+          <div class="cs-point-icon">⭐</div>
+          <div class="cs-point-text"><strong>Top Video: 259K Views</strong>"10 Things No One Tells You About Minoxidil" — 259,480 views, 16,989 watch hours, 1,637 subscribers and $1,018 in revenue from a single video.</div>
+        </div>
+        <div class="cs-point">
+          <div class="cs-point-icon">💡</div>
+          <div class="cs-point-text"><strong>5.62% Average CTR</strong>Above platform average, driven by data-informed thumbnail and title strategy tested consistently across the content calendar.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <div class="case-study-card">
+    <div class="cs-header">
+      <div class="cs-header-left">
+        <div class="cs-tag green">Featured Case Study</div>
+        <div class="cs-title">Dr McDougall — Health & Wellness</div>
+        <div class="cs-subtitle">Content Repurposing Strategy During Production Freeze</div>
+      </div>
+      <div class="cs-metrics">
+        <div class="metric-pill">
+          <div class="metric-number">175.5%</div>
+          <div class="metric-label">New Viewer Growth</div>
+        </div>
+        <div class="metric-pill">
+          <div class="metric-number">110K+</div>
+          <div class="metric-label">Views from Shorts</div>
+        </div>
+        <div class="metric-pill">
+          <div class="metric-number">1,235h</div>
+          <div class="metric-label">Watch Time Added</div>
+        </div>
+        <div class="metric-pill">
+          <div class="metric-number">28.6%</div>
+          <div class="metric-label">Returning Viewer Growth</div>
+        </div>
+      </div>
+    </div>
+    <div class="cs-body">
+      <div class="cs-divider"></div>
+      <div class="cs-section-title">The Challenge</div>
+      <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:24px;line-height:1.7;">The client could not shoot any new content for several months. The obvious move was to pause and wait. Instead I treated the constraint as a creative brief and built a full growth strategy around their existing archive — with zero new budget and zero new shoots.</p>
+      <div class="cs-section-title">What I Did</div>
+      <div class="cs-grid">
+        <div class="cs-point">
+          <div class="cs-point-icon">📊</div>
+          <div class="cs-point-text"><strong>Archive Audit</strong>Identified highest-potential topics from existing long-form content based on search demand and audience data.</div>
+        </div>
+        <div class="cs-point">
+          <div class="cs-point-icon">✂️</div>
+          <div class="cs-point-text"><strong>Shorts Repurposing</strong>Sliced Livestream segments into vertical Shorts, selecting topics with the best potential for new viewer discovery.</div>
+        </div>
+        <div class="cs-point">
+          <div class="cs-point-icon">🔍</div>
+          <div class="cs-point-text"><strong>SEO Overhaul</strong>Deep metadata optimisation across titles, descriptions and tags — mixing brand, niche and long-tail keywords.</div>
+        </div>
+        <div class="cs-point">
+          <div class="cs-point-icon">📈</div>
+          <div class="cs-point-text"><strong>Long-form Strategy</strong>Created new videos built around trending keywords, viewer FAQs and community poll insights to expand reach.</div>
+        </div>
+      </div>
+      <div class="cs-section-title">The Numbers</div>
+      <div class="cs-grid">
+        <div class="cs-point">
+          <div class="cs-point-icon">🚀</div>
+          <div class="cs-point-text"><strong>12 Shorts → 110,161 Views</strong>12 repurposed Shorts generated over 110K views and 1,235 hours of additional watch time.</div>
+        </div>
+        <div class="cs-point">
+          <div class="cs-point-icon">👥</div>
+          <div class="cs-point-text"><strong>New Viewers: 276K → 761K</strong>New viewer acquisition grew from 276,176 to 761,094 — a 175.5% increase in 6 months.</div>
+        </div>
+        <div class="cs-point">
+          <div class="cs-point-icon">🔄</div>
+          <div class="cs-point-text"><strong>Returning Viewers: 880K → 1.1M</strong>Returning viewers grew from 880,631 to 1,132,951 — a 28.6% increase showing stronger audience retention.</div>
+        </div>
+        <div class="cs-point">
+          <div class="cs-point-icon">💡</div>
+          <div class="cs-point-text"><strong>Videos Drove 60%+ of Growth</strong>Long-form content drove over 60% of total channel growth during the strategy period.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NINJATRADER -->
+  <div class="case-study-card">
+    <div class="cs-header">
+      <div class="cs-header-left">
+        <div class="cs-tag">Channel Strategy</div>
+        <div class="cs-title">NinjaTrader — Fintech / Trading Platform</div>
+        <div class="cs-subtitle">Full YouTube Growth Strategy & Livestream Optimisation</div>
+      </div>
+    </div>
+    <div class="cs-body">
+      <div class="cs-divider"></div>
+      <div class="cs-section-title">The Brief</div>
+      <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:24px;line-height:1.7;">NinjaTrader is the #1 rated futures trading platform. Their YouTube channel features daily live streams for advanced traders but lacked a cohesive content strategy. The goal was to increase engagement on live streams, enhance thought leadership and drive organic subscriber and viewership growth.</p>
+      <div class="cs-section-title">What I Built</div>
+      <div class="cs-grid">
+        <div class="cs-point">
+          <div class="cs-point-icon">🎯</div>
+          <div class="cs-point-text"><strong>UVP & Positioning</strong>Defined NinjaTrader's unique content positioning in the futures trading space, differentiating from options-focused competitors.</div>
+        </div>
+        <div class="cs-point">
+          <div class="cs-point-icon">👥</div>
+          <div class="cs-point-text"><strong>Audience Analysis</strong>Mapped two distinct audience segments (advanced traders and beginners) and built separate content pillars for each.</div>
+        </div>
+        <div class="cs-point">
+          <div class="cs-point-icon">🔬</div>
+          <div class="cs-point-text"><strong>Competitor Research</strong>In-depth analysis of TastyLive (402K subscribers) and TopStep (101K subscribers) to identify gaps NinjaTrader could own.</div>
+        </div>
+        <div class="cs-point">
+          <div class="cs-point-icon">📺</div>
+          <div class="cs-point-text"><strong>Livestream Structure</strong>Redesigned the livestream format with defined segments built for repurposing, improving both live engagement and post-stream content output.</div>
+        </div>
+        <div class="cs-point">
+          <div class="cs-point-icon">♻️</div>
+          <div class="cs-point-text"><strong>Repurposing System</strong>Built a full content funnel: Shorts → Video Clips → Podcast → Full Segments → Live, maximising reach from every stream.</div>
+        </div>
+        <div class="cs-point">
+          <div class="cs-point-icon">📅</div>
+          <div class="cs-point-text"><strong>Publishing Calendar</strong>Designed a 6-day publishing schedule with designated content types per day to build audience predictability and algorithmic consistency.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REMITLY -->
+  <div class="case-study-card">
+    <div class="cs-header">
+      <div class="cs-header-left">
+        <div class="cs-tag">Strategy & SEO</div>
+        <div class="cs-title">Remitly — International Fintech</div>
+        <div class="cs-subtitle">Channel Audit + Full Content Strategy for Global Audience</div>
+      </div>
+    </div>
+    <div class="cs-body">
+      <div class="cs-divider"></div>
+      <div class="cs-section-title">The Challenge</div>
+      <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:24px;line-height:1.7;">Remitly's channel had 38.8K subscribers and 178M total views, but content leaned heavily on paid ads and commercial content. The channel lacked variety, targeting and evergreen content to drive organic discovery. Packaging across titles and thumbnails was underoptimised.</p>
+      <div class="cs-section-title">What I Delivered</div>
+      <div class="cs-grid">
+        <div class="cs-point">
+          <div class="cs-point-icon">🔍</div>
+          <div class="cs-point-text"><strong>Full Channel Audit</strong>Analysed 405 videos across performance, packaging and audience targeting to identify priority opportunities.</div>
+        </div>
+        <div class="cs-point">
+          <div class="cs-point-icon">🌍</div>
+          <div class="cs-point-text"><strong>Multi-Language Strategy</strong>Developed content strategy catering to Remitly's global audience across multiple languages and regional contexts.</div>
+        </div>
+        <div class="cs-point">
+          <div class="cs-point-icon">📐</div>
+          <div class="cs-point-text"><strong>Content Pillar Framework</strong>Built evergreen educational content strategy to complement paid activity and drive organic brand awareness.</div>
+        </div>
+        <div class="cs-point">
+          <div class="cs-point-icon">📦</div>
+          <div class="cs-point-text"><strong>Packaging Optimisation</strong>Redesigned title and thumbnail approach to improve CTR and search discoverability across all content types.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTERCOM -->
+  <div class="case-study-card">
+    <div class="cs-header">
+      <div class="cs-header-left">
+        <div class="cs-tag">B2B SaaS</div>
+        <div class="cs-title">Intercom — B2B Customer Service Platform</div>
+        <div class="cs-subtitle">Channel Analysis + Growth Strategy for B2B Audience</div>
+      </div>
+    </div>
+    <div class="cs-body">
+      <div class="cs-divider"></div>
+      <p style="font-size:0.9rem;color:var(--text-muted);line-height:1.7;">Conducted a full 62-page channel audit and analysis for Intercom's YouTube presence, identifying content gaps, audience opportunities and packaging improvements. Delivered a strategic roadmap covering content pillars, competitor positioning, SEO optimisation and a publishing framework tailored for a B2B SaaS audience.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- BRANDS -->
+<div class="brands-section">
+  <div class="brands-label">Brands I have worked with</div>
+  <div class="brands-grid">
+    <div class="brand-pill">Nintendo</div>
+    <div class="brand-pill">Remitly</div>
+    <div class="brand-pill">Gillette</div>
+    <div class="brand-pill">Intercom</div>
+    <div class="brand-pill">Schneider Electric</div>
+    <div class="brand-pill">NinjaTrader</div>
+    <div class="brand-pill">DSP Mutual Fund</div>
+    <div class="brand-pill">T-Mobile</div>
+    <div class="brand-pill">Braun</div>
+    <div class="brand-pill">iD Fresh Foods</div>
+    <div class="brand-pill">Dr McDougall</div>
+    <div class="brand-pill">DevStats</div>
+    <div class="brand-pill">Proposify</div>
+    <div class="brand-pill">Alinker</div>
+    <div class="brand-pill">WhiteHat Jr</div>
+    <div class="brand-pill">Dr Reddy's</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services" style="max-width:1100px;margin:0 auto;">
+  <div class="section-label">What I Do</div>
+  <h2 class="section-title">Services</h2>
+  <p class="section-sub">End-to-end YouTube strategy and execution — from zero to channel growth, or from plateau to breakthrough.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🎯</div>
+      <div class="service-title">Channel Strategy</div>
+      <div class="service-desc">Full channel positioning, content pillars, audience analysis, competitor research and long-term content roadmap.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔍</div>
+      <div class="service-title">SEO & Packaging</div>
+      <div class="service-desc">Title and thumbnail optimisation, metadata strategy, keyword research and packaging that drives click-through.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">♻️</div>
+      <div class="service-title">Content Repurposing</div>
+      <div class="service-desc">Maximising existing content through strategic repurposing into Shorts, clips and evergreen formats.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📊</div>
+      <div class="service-title">Analytics & Reporting</div>
+      <div class="service-desc">Monthly performance reports with CTR, retention, watch time and audience data translated into actionable insights.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📅</div>
+      <div class="service-title">Content Planning</div>
+      <div class="service-desc">Editorial calendars, content briefs, idea pipelines and publishing frameworks built for consistent output.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">👥</div>
+      <div class="service-title">Team Management</div>
+      <div class="service-desc">Leading and coordinating researchers, scriptwriters, editors and designers to execute strategy at scale.</div>
+    </div>
+  </div>
+</section>
+
+<!-- MY PROCESS -->
+<section style="max-width:1100px;margin:0 auto;padding-top:0;">
+  <div class="section-label">How I Work</div>
+  <h2 class="section-title">My Process</h2>
+  <p class="section-sub">Every engagement starts with understanding the channel and audience deeply before touching a single video.</p>
+  <div class="process-grid">
+    <div class="process-step">
+      <div class="process-number">01</div>
+      <div class="process-title">Audit & Diagnose</div>
+      <div class="process-desc">Deep dive into the channel — what is working, what is not, and why. Competitor analysis and audience mapping.</div>
+    </div>
+    <div class="process-step">
+      <div class="process-number">02</div>
+      <div class="process-title">Strategy & Positioning</div>
+      <div class="process-desc">Define the unique content angle, content pillars, keyword opportunities and a clear growth roadmap.</div>
+    </div>
+    <div class="process-step">
+      <div class="process-number">03</div>
+      <div class="process-title">Execute & Optimise</div>
+      <div class="process-desc">Content calendar, briefs, SEO, thumbnails and packaging — executed consistently and measured weekly.</div>
+    </div>
+    <div class="process-step">
+      <div class="process-number">04</div>
+      <div class="process-title">Report & Iterate</div>
+      <div class="process-desc">Monthly performance reports with clear data, wins and next steps. Strategy evolves with what the data says.</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" style="max-width:1100px;margin:0 auto;padding-top:0;">
+  <div class="section-label">Experience</div>
+  <h2 class="section-title">Where I have worked</h2>
+  <p class="section-sub" style="margin-bottom:40px;">5+ years across agencies in Canada, New York and India — always in YouTube and content strategy.</p>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-left"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+      <div class="timeline-content">
+        <div class="timeline-header"><div class="timeline-title">YouTube Manager</div><div class="timeline-date">Jun 2026 – Present</div></div>
+        <div class="timeline-company">GrowUMedia · Delhi, India · Remote</div>
+        <div class="timeline-desc">Leading the full content team — researchers, scriptwriters and editors — for healthcare tech clients. Managing client relationships, channel strategy, content operations and performance reporting.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-left"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+      <div class="timeline-content">
+        <div class="timeline-header"><div class="timeline-title">Sr. YouTube Strategist</div><div class="timeline-date">Jun 2025 – Jan 2026</div></div>
+        <div class="timeline-company">Social Imprint Agency · Texas, USA · Remote</div>
+        <div class="timeline-desc">Led YouTube strategy for multiple clients at a US digital agency — channel audits, content planning, briefs, SEO and performance optimisation.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-left"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+      <div class="timeline-content">
+        <div class="timeline-header"><div class="timeline-title">YouTube Strategist & Account Manager</div><div class="timeline-date">Sep 2023 – Feb 2025</div></div>
+        <div class="timeline-company">Vireo Video · Vancouver, Canada · Remote</div>
+        <div class="timeline-desc">Developed and owned YouTube growth strategies for 10+ global clients including Nintendo, Remitly, Intercom and NinjaTrader. Monthly performance reporting, SEO, thumbnail direction and junior team mentoring.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-left"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+      <div class="timeline-content">
+        <div class="timeline-header"><div class="timeline-title">Account Manager & YouTube Channel Manager</div><div class="timeline-date">Nov 2021 – Aug 2023</div></div>
+        <div class="timeline-company">Touchstorm · New York, USA · Remote</div>
+        <div class="timeline-desc">Managed client accounts for Gillette, DSP Mutual Fund and Schneider Electric. Supervised cross-functional teams, led end-to-end video production and delivered YouTube channel strategy and SEO across all accounts.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section" id="contact">
+  <h2>Let's build something that grows.</h2>
+  <p>Looking for a YouTube strategist who brings data, structure and creative thinking to every channel? Let's talk.</p>
+  <div class="cta-links">
+    <a href="mailto:rahulchauhan0970@gmail.com" class="cta-link">✉️ rahulchauhan0970@gmail.com</a>
+    <a href="tel:+918586812832" class="cta-link">📞 +91 8586812832</a>
+  </div>
+</div>
+
+<footer>
+  © 2026 Rahul Chauhan · YouTube Strategist · Delhi, India
+</footer>
+
+</body>
+</html>
